@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>HTFNet: Hybrid Time-Frequency UNet for binaural audio synthesis</title>
+  <link rel="icon" type="image/x-icon" href="static/images/logo.png">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <!-- <style>
+    body {
+        background-image: url('static/images/222.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+  </style> -->
+
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">THTFNet: Hybrid Time-Frequency UNet for binaural audio synthesis</h1>
+                  <div class="is-size-5 publication-authors">
+                          <!-- Paper authors -->
+                    <span class="author-block" style="color: #06a7e7;">
+                            Wenjie Zhang
+                    </span>,
+                    <span class="author-block" style="color: #06a7e7;">
+                      Changjun He<sup>
+                    </span>,
+                    <span class="author-block" style="color: #06a7e7;">
+                      Yinghan Cao<sup>
+                    </span>,
+                    <span class="author-block" style="color: #06a7e7;">
+                      Shiyun Xu<sup>
+                    </span>,
+                    <span class="author-block" style="color: #06a7e7;">
+                      Mingjiang Wang<sup><span style="color: black;">*</span></sup>
+                    </span>
+
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"> Harbin Institute of Technology, Harbin Institute of Technology (Shenzhen)<br>EURASIP Journal on Audio, Speech, and Music Processing</span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Corresponding Author</small></span>
+                  </div>
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle" style="text-align: left;">
+        The video below includes binauralized results of walking sounds, music, song, and speech. 
+        The silence video in our demo is from the dataset in BinauralSpeechSynthesis.   
+        Please enjoy it. 
+      </h2>
+      <video poster="" id="tree" autoplay controls muted loop height="100%" style="display: block; margin: 0 auto;"> -->
+        <!-- Your video here -->
+        <!-- <source src="static/videos/demo.mp4"
+        type="video/mp4">
+      </video>
+      <p style="text-align: left; margin-top: 5px; padding: 2px; border: 2px solid #ff9800; border-radius: 5px; background-color: #fff3e0;width: 45%;">
+        ⚠️ Please wear headphones when watching this video.
+      </p>  
+    </div>
+  </div>
+</section> -->
+<!-- End teaser video -->
+ 
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Binaural audio is an essential technique for achieving highly realistic spatial localization. Currently, direct binaural audio recording and HRTF-based binaural audio synthesis are the two mainstream approaches for presenting binaural audio. However, the former often incurs high costs, while the latter typically lacks constraints on the orientation of the source, which we believe leaves room for performance improvement. To address this, we propose a hybrid time-frequency domain UNet framework for binaural audio synthesis, namely HTF-Net. Specifically, we first convert the mono audio into an initial binaural signal, which is then processed separately in the time and frequency domains to extract both local and global features. Gated Conv Transformer Blocks (GCTBs) are used to capture the global context, while a Pos-Ori Attention Module (POAM) is introduced to integrate the spatial information of the sound source and capture its movement. During the reconstruction phase, Dilated Residual Convolution Blocks (DRCBs) are incorporated to capture features in both the time and frequency domains. Extensive experiments demonstrate that the proposed method produces outperforms other state-of-the-art methods in phase estimation (Phase-\( \mathscr{L}_{2} \): 0.761, IPD-\( \mathscr{L}_{2} \): 1.072, Wave-\( \mathscr{L}_{2} \): 0.136, Amp-\( \mathscr{L}_{2} \): 0.035).          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Audio Grid Section -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Samples from Binaural Speech Datasets</h1>
+      <table>
+        <!-- Repeat the row structure for the rest of the 35 audio files -->
+
+        <tr>
+          <th style="text-align: center; padding-right: 20px;"></th> <!-- 描述列 -->
+          <th style="text-align: center;">Mono</th>
+          <th style="text-align: center;">Groundtruth</th>
+          <th style="text-align: center;">WaveNet</th>
+          <th style="text-align: center;">WarpNet</th>
+          <th style="text-align: center;">NFS</th>
+          <th style="text-align: center;">BinauralGrad</th>
+          <th style="text-align: center;">HTFNet</th>
+          <!-- 继续添加其他表头描述 -->
+        </tr>
+        
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Sample1</strong></td> <!-- 描述列 -->
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/mono/mono3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/groundtruth/binaural3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/output/subject3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/output/subject3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/output/subject3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/output/subject3.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/output/subject3.wav" type="audio/wav"></audio></td>
+        </tr>
+
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Sample2</strong></td> <!-- 描述列 -->
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/mono/mono5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/groundtruth/binaural5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/output/subject5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/output/subject5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/output/subject5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/output/subject5.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/output/subject5.wav" type="audio/wav"></audio></td>
+        </tr>
+
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Sample3</strong></td> <!-- 描述列 -->
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/mono/mono6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/groundtruth/binaural6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/output/subject6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/output/subject6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/output/subject6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/output/subject6.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/output/subject6.wav" type="audio/wav"></audio></td>
+        </tr>
+
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Sample4</strong></td> <!-- 描述列 -->
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/mono/mono8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/groundtruth/binaural8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/output/subject8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/output/subject8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/output/subject8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/output/subject8.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 190px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/output/subject8.wav" type="audio/wav"></audio></td>
+        </tr>
+
+
+        <!-- Repeat for other rows as needed -->
+      </table>
+
+      <p style="text-align: left; margin-top: 5px; padding: 2px; border: 2px solid #ff9800; border-radius: 5px; background-color: #fff3e0;width: 31%;">
+        ⚠️ Please use headphones to listen to these audios.
+      </p>      
+    </div>
+  </div>
+</section>
+<!-- End Audio Grid Section -->
+
+
+<!-- Audio Grid Section -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Music and Song</h1>
+      <table>
+       
+        <tr> 
+          <th style="text-align: center; padding-right: 20px;"></th> 
+          <th style="text-align: center;">Mono</th>
+          <th style="text-align: center;">WaveNet</th>
+          <th style="text-align: center;">WarpNet</th>
+          <th style="text-align: center;">NFS</th>
+          <th style="text-align: center;">BinauralGrad</th>
+          <th style="text-align: center;">Ours</th>
+        </tr>
+      
+
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Music</strong></td> 
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/For_Elise_mono.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/For_Elise.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/For_Elise.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/For_Elise.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/For_Elise.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/For_Elise.wav" type="audio/wav"></audio></td>
+        </tr>
+  
+
+        <tr>
+          <td style="vertical-align: middle; text-align: center; padding-right: 10px;"><strong>Song</strong></td> 
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/what_makes_you_beautiful_mono.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/wavenet/what_makes_you_beautiful.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/warpnet/what_makes_you_beautiful.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/nfs/what_makes_you_beautiful.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/binauralgrad/what_makes_you_beautiful.wav" type="audio/wav"></audio></td>
+          <td><audio controls style="width: 210px; margin-top: 10px;"><source src="static/Synthesised_Audio/ours/what_makes_you_beautiful.wav" type="audio/wav"></audio></td>
+        </tr>
+
+
+      </table>
+      <p style="text-align: left; margin-top: 5px; padding: 2px; border: 2px solid #ff9800; border-radius: 5px; background-color: #fff3e0;width: 31%;">
+        ⚠️ Please use headphones to listen to these audios.
+      </p> 
+    </div>
+  </div>
+</section> -->
+<!-- End Audio Grid Section -->
+
+
+
+
+
+<!--BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var audios = document.querySelectorAll('audio');
+  
+        audios.forEach(function(audio) {
+          audio.addEventListener('play', function() {
+            audios.forEach(function(otherAudio) {
+              if (otherAudio !== audio) {
+                otherAudio.pause();
+                otherAudio.currentTime = 0; // 可选：重置进度条
+              }
+            });
+          });
+        });
+      });
+    </script>
+    
+  </body>
+  </html>
